@@ -1,6 +1,9 @@
 import express from 'express'
-
+import path from 'path'
+const publicPath = path.resolve('public')
 const app = express()
+
+app.use(express.static(publicPath))
 
 app.set('view engine','ejs')
 
