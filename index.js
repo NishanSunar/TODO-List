@@ -17,5 +17,11 @@ app.get("/add",(req, resp)=>{
 app.get("/update",(req, resp)=>{
     resp.render("update")
 })
+app.post("/add",(req, resp)=>{
+    resp.redirect("/")
+})
+app.post("/update",(req, resp)=>{
+    resp.redirect("/")
+})
 
 app.listen(3200)

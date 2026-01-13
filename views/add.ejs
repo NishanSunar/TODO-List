@@ -8,6 +8,15 @@
 </head>
 <body>
     <%- include('navbar')  %>
-    <h1>Add task</h1>
+    <div class="container">
+        <h1>Add task</h1>
+        <form class="todo-form" action="/add" method="post">
+            <input class="input" type="text" placeholder="Enter the task">
+            <br><br>
+            <textarea class="input" name="description" id=""></textarea>
+            <br><br>
+            <button class="btn">Add task</button>
+        </form>
+    </div>
 </body>
 </html>
