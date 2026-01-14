@@ -1,10 +1,22 @@
 import express from 'express'
 import path from 'path'
+import { MongoClient } from 'mongodb'
+
+const dbName = "Node-Project"
+const collectionName = "TODO"
+const url = "mongodb://localhost:27017"
+const client = new MongoClient(url)
+
+const connection =async ()=>{
+    const connect = await client.connect()
+    return await connect.db(dbName)
+}
+
 const publicPath = path.resolve('public')
 const app = express()
 
 app.use(express.static(publicPath))
-
+app.use(express.urlencoded({extended:false}))
 app.set('view engine','ejs')
 
 app.get("/",(req, resp)=>{
@@ -17,7 +29,10 @@ app.get("/add",(req, resp)=>{
 app.get("/update",(req, resp)=>{
     resp.render("update")
 })
-app.post("/add",(req, resp)=>{
+app.post("/add",async (req, resp)=>{
+    const db = await connection()
+    const collection = db.collection(collectionName)
+    const result = collection.insertOne(req.body)
     resp.redirect("/")
 })
 app.post("/update",(req, resp)=>{
