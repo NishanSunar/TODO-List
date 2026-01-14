@@ -112,6 +112,7 @@ textarea.input{
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    border: none;
 }
 .delete-item:hover{
     background-color:red ;

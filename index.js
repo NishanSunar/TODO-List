@@ -75,5 +75,18 @@ app.post('/update/:id',async(req, resp)=>{
         resp.send("/some error")
     }
 })
+app.post('/multi-delete',async(req, resp)=>{
+    const db = await connection()
+    const collection = db.collection(collectionName)
+    const selectedTask = req.body.selectedTask.map((id)=> new ObjectId(id))
+    const result = await collection.deleteMany({_id:{$in:selectedTask}})
+    if(result){
+        resp.redirect("/")
+
+    }
+    else{
+        resp.send("/some error")
+    }
+})
 
 app.listen(3200)
