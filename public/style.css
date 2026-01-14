@@ -116,3 +116,16 @@ textarea.input{
 .delete-item:hover{
     background-color:red ;
 }
+.update-item{
+    margin-top: 10px;
+    padding: 6px 10px ;
+    background-color: #28ce33;
+    color: #fff;
+    border-radius:4px ;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+.update-item:hover{
+    background-color:rgb(58, 120, 13) ;
+}
