@@ -1,6 +1,7 @@
 import express from 'express'
 import path from 'path'
 import { MongoClient, ObjectId } from 'mongodb'
+import { fileLoader } from 'ejs'
 
 const dbName = "Node-Project"
 const collectionName = "TODO"
@@ -38,9 +39,7 @@ app.post("/add",async (req, resp)=>{
     const result = collection.insertOne(req.body)
     resp.redirect("/")
 })
-app.post("/update",(req, resp)=>{
-    resp.redirect("/")
-})
+
 
 app.get('/delete/:id',async(req, resp)=>{
     const db = await connection()
@@ -52,9 +51,24 @@ app.get('/update/:id',async(req, resp)=>{
     const db = await connection()
     const collection = db.collection(collectionName)
     const result = await collection.findOne({_id: new ObjectId(req.params.id)})
-    console.log(result)
+   
     if(result){
         resp.render("update",{result})
+
+    }
+    else{
+        resp.send("/some error")
+    }
+})
+app.post('/update/:id',async(req, resp)=>{
+    const db = await connection()
+    const collection = db.collection(collectionName)
+    const filter = {_id : new ObjectId(req.params.id)}
+    console.log(req.body.title)
+    const updateData = {$set:{title:req.body.title,description:req.body.description}}
+    const result = await collection.updateOne(filter,updateData)
+    if(result){
+        resp.redirect("/")
 
     }
     else{
